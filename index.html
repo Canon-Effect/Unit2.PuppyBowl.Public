@@ -1,0 +1,47 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- import JavaScript -->
+  <script defer src="script.js"></script>
+
+  <!-- import CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <title>PuppyBowl</title>
+</head>
+
+<body>
+
+  <!-- form to add new players -->
+  <div id="new-player-form">
+    <form id="add-player-form">
+      <h2>Add New Player</h2>
+      <label for="player-name">Name:</label>
+      <input type="text" id="player-name" name="name" required>
+      
+      <br>
+      <label for="player-breed">Breed:</label>
+      <input type="text" id="player-breed" name="breed" required>
+      <br>
+
+
+      <label for="player-status">Status:</label>
+      <input type="text" id="player-status" name="status" required>
+      <br>
+
+      <label for="player-ImageURL">ImageURL:</label>
+      <input type="imageurl" id="player-imageurl" name="imageurl" required>
+      <br>
+
+      <button type="submit">Add Player</button>
+    </form>
+  </div>
+
+  <!-- container for all players -->
+  <div id="all-players-container"></div>
+
+</body>
+
+</html>
