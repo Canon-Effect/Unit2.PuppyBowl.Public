@@ -1,5 +1,6 @@
 const playerContainer = document.getElementById('all-players-container');
-const newPlayerFormContainer = document.getElementById('new-player-form');
+const newPlayerFormContainer = document.getElementById('add-player-form');
+console.log(newPlayerFormContainer, 'line 3 NewPlayerFormContainer')
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
 const cohortName = '2308-acc-pt-web-pt-b';
@@ -17,8 +18,11 @@ const fetchAllPlayers = async () => {
     try {
         const response = await fetch(`${APIURL}/players`);
         const result = await response.json();
-        state.players = result.data.players;
-        return state.players
+
+        const fetchedPlayers = result.data.players;
+        state.players = fetchedPlayers;
+
+        return fetchedPlayers;
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
     }
@@ -40,17 +44,17 @@ const addNewPlayer = async (playerObj) => {
         const response = await fetch(
             'https://fsa-puppy-bowl.herokuapp.com/api/2308-acc-pt-web-pt-b/players',
             {
-                method: 'POST', 
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', 
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(playerObj)
+                body: JSON.stringify(playerObj),
             }
         );
 
         const result = await response.json();
-        state.players.push(newPlayer);
-        console.log('New player added', newPlayer);
+        state.players.push(playerObj); 
+        console.log('New player added', playerObj);
     } catch (err) {
         console.error('Oops, something went wrong with adding that player!', err);
     }
@@ -95,6 +99,23 @@ const removePlayer = async (playerId) => {
  * @param playerList - an array of player objects
  * @returns the playerContainerHTML variable.
  */
+
+newPlayerFormContainer.addEventListener("submit", async (event) => {
+    event.preventDefault()
+    const name = event.target.name.value
+    const breed = event.target.breed.value
+    const status = event.target.status.value
+    const imageUrl = event.target.imageUrl.value
+    const newPlayerObject = {
+        name:name, 
+        breed:breed,
+        status:status,
+        imageURL:imageUrl,
+    }
+    // console.log(newPlayerObject)
+    await addNewPlayer(newPlayerObject)
+});
+
 const renderAllPlayers = (playerList) => {
     try {
         if (!Array.isArray(playerList)) {
